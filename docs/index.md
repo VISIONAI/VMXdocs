@@ -30,8 +30,8 @@ required MCR can be found below.
 
 OS | Installer | MATLAB MCR
 ---|:----: | ---
-Linux | <img src="img/ubuntu.png" alt="Drawing" style="width: 100px;"/><br/><a href="http://files.vision.ai/vmx/Linux/VMX.tar.gz">VMX.tar.gz</a> | <img src="img/matlab.png" style="width:100px;"> <br/><a href="http://www.mathworks.com/supportfiles/downloads/R2014a/deployment_files/R2014a/installers/glnxa64/MCR_R2014a_glnxa64_installer.zip">MCR_R2014a_glnxa64_installer.zip</a>
-Mac OS X | <img src="img/osx.png" alt="Drawing" style="width: 100px;"/><br/><a href="http://files.vision.ai/vmx/Mac/VMX.pkg">VMX.pkg</a> | <img src="img/matlab.png" style="width:100px;"> <br/><a href="http://www.mathworks.com/supportfiles/downloads/R2014a/deployment_files/R2014a/installers/maci64/MCR_R2014a_maci64_installer.zip">MCR_R2014a_maci64_installer.zip</a>
+Linux | <img src="img/ubuntu.png" alt="Drawing" style="width: 100px;"/><br/><a href="http://files.vision.ai/vmx/Linux/VMX.tar.gz">VMX.tar.gz</a> | <img src="img/matlab.png" style="width:100px;"> <br/><a href="http://www.mathworks.com/supportfiles/downloads/R2014a/deployment_files/R2014a/installers/glnxa64/MCR_R2014a_glnxa64_installer.zip">MCR_linux.zip</a>
+Mac OS X | <img src="img/osx.png" alt="Drawing" style="width: 100px;"/><br/><a href="http://files.vision.ai/vmx/Mac/VMX.pkg">VMX.pkg</a> | <img src="img/matlab.png" style="width:100px;"> <br/><a href="http://www.mathworks.com/supportfiles/downloads/R2014a/deployment_files/R2014a/installers/maci64/MCR_R2014a_maci64_installer.zip">MCR_mac.zip</a>
 
 If you need to download any of the individual VMX components, download
 an older version, or want to try a bleeding-edge experimental build,
