@@ -85,8 +85,13 @@ docker pull visionai/vmx
 
 You can install docker directly on your Linux machine using apt-get,
 or on your Mac OS X / Windows computer via boot2docker.  You can find
-information about Docker at http://www.docker.com and information bout
-boot2docker at https://github.com/boot2docker/boot2docker
+information about Docker at [http://www.docker.com](http://www.docker.com) and information bout
+boot2docker at [https://github.com/boot2docker/boot2docker](https://github.com/boot2docker/boot2docker).
+
+You can also find a set of useful Docker command line scripts at the
+following github repository:
+
+[VISIONAI/vmx-docker-manager](https://github.com/VISIONAI/vmx-docker-manager)
 
 ## Activating VMX
 
@@ -94,13 +99,14 @@ To run VMX locally, each VMX installation requires a valid key, an
 agreement of the End User Licensing Agreement, and an internet
 connection to convert a key into a valid license from the vision.ai
 activation server.  Activation is usually performed from within the
-VMX App Builder program, but you can visit http://forums.vision.ai for
-more help if you need to activate VMX a different way.
-
+VMX App Builder program, but you can visit
+[https://forums.vision.ai](https://forums.vision.ai) for more help if
+you need to activate VMX a different way.
 
 A valid key corresponding to an personal license can be purchased from
-(http://vision.ai).  Please see https://forums.vision.ai to learn more
-about any specials offers and finding out how to be a beta tester.
+[https://vision.ai](https://vision.ai).  Please see
+[https://forums.vision.ai](https://forums.vision.ai) to learn more about any specials offers and
+finding out how to be a beta tester.
 
 Once you've obtained a valid VMX key, you can perform the activation
 procedure on the command line:
@@ -115,7 +121,6 @@ curl POST request:
 ```sh
 curl -X POST http://localhost:3000/activate/a-special-key-you-got-from-vision-ai
 ```
-
 
 
 This documentation can be found at

@@ -35,11 +35,4 @@ positives to the negative side, and vice-versa.  In very difficult
 training scenarios, you will have to use this Model Editor to clean up
 any mistakes made by the automatic learning algorithm.
 
-## Online help
-
-Stuck? Visit the VMX forums at https://forums.vision.ai for more information,
-tutorial, FAQs, and discussions regarding common installation issues.
-
-![VMX](img/v_square.png)
-
 ***Copyright 2013-2014 vision.ai, LLC. All rights reserved.***

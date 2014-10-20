@@ -5,7 +5,6 @@ site_favicon: favicon.ico
 use_directory_urls: False
 pages:
 - ['index.md', 'Introduction']
-- ['VMXAppBuilder.md', 'AppBuilder']
-- ['VMXmiddle.md', 'VMXMiddle']
-- ['VMXserver.md', 'VMXServer']
-- ['eula.md','VMX EULA']
+- ['VMXAppBuilder.md', 'App Builder']
+- ['VMXmiddle.md', 'REST API']
+- ['VMXserver.md', 'VMX Server']
