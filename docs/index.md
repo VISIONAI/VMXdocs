@@ -74,6 +74,9 @@ the `VMX binary ` will be `/Applications/VMX.app/Contents/MacOS/` and
 the location of the `VMX server binary` will be
 `/Applications/VMX.app/Contents/MacOS/VMXserer.app/Contents/MacOS/`.
 
+To uninstall in Mac OS X, simply remove the /Applications/VMX.app folder into your Trash.  VMX stores all of its files within this directory, so be sure to back up your models if you're created any of your own.
+
+
 ### Docker notes
 
 Docker is the easiest way to install VMX, as it bundles *all*
