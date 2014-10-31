@@ -35,7 +35,7 @@ Mac OS X | <img src="img/osx.png" alt="Drawing" style="width: 100px;"/><br/><a h
 
 If you need to download any of the individual VMX components, download
 an older version, or want to try a bleeding-edge experimental build,
-please visit `http://files.vision.ai/vmx/`.
+please visit [https://files.vision.ai/](http://files.vision.ai/).
 
 The Mac OS X VMX bundle together with the MATLAB MCR contain all
 required libraries you will need for your Mac.  For Linux, you can
@@ -74,7 +74,16 @@ the `VMX binary ` will be `/Applications/VMX.app/Contents/MacOS/` and
 the location of the `VMX server binary` will be
 `/Applications/VMX.app/Contents/MacOS/VMXserer.app/Contents/MacOS/`.
 
-To uninstall in Mac OS X, simply remove the /Applications/VMX.app folder into your Trash.  VMX stores all of its files within this directory, so be sure to back up your models if you're created any of your own.
+To uninstall in Mac OS X, simply remove the /Applications/VMX.app
+folder into your Trash.  VMX stores all of its files within this
+directory, so be sure to back up your models if you're created any of
+your own.
+
+The MAC OS X installer will use `/tmp/mcr_cache` as the MCR cache
+directory.  If you're having issues with installation/activation, make
+sure you have read/write permissions for this folder.  You can also
+try removing the directory `/tmp/mcr_cache` in the case it gets corrupted.
+VMXserver will regenerate a cache directory if it is not present.
 
 
 ### Docker notes
