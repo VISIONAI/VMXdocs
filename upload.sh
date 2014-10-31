@@ -1,1 +1,3 @@
-scp -r site/ root@104.131.188.82:/docs/
+cd site/
+scp -r * root@docs.vision.ai:/docs/
+cd -
