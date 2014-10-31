@@ -23,48 +23,69 @@ how VMX models are organized on your hard drive.
 
 ## Installing VMX
 
-To install VMX, you need to download an installer from for either Mac
-OS X or Linux. VMX requires v8.3 of the Matlab Compiler Runtime
-(R2014a) installed on your machine.  The latest VMX releases and the
-required MCR can be found below.
+To install VMX, you need to download an installer, or use a docker image. VMX requires v8.3 of the Matlab Compiler Runtime
+(R2014a).  The latest VMX releases and the required MCR can be found below.
 
-OS | Installer | MATLAB MCR
----|:----: | ---
-Linux | <img src="img/ubuntu.png" alt="Drawing" style="width: 100px;"/><br/><a href="http://files.vision.ai/vmx/Linux/VMX.tar.gz">VMX.tar.gz</a> | <img src="img/matlab.png" style="width:100px;"> <br/><a href="http://www.mathworks.com/supportfiles/downloads/R2014a/deployment_files/R2014a/installers/glnxa64/MCR_R2014a_glnxa64_installer.zip">MCR_linux.zip</a>
-Mac OS X | <img src="img/osx.png" alt="Drawing" style="width: 100px;"/><br/><a href="http://files.vision.ai/vmx/Mac/VMX.pkg">VMX.pkg</a> | <img src="img/matlab.png" style="width:100px;"> <br/><a href="http://www.mathworks.com/supportfiles/downloads/R2014a/deployment_files/R2014a/installers/maci64/MCR_R2014a_maci64_installer.zip">MCR_mac.zip</a>
+
+|OS | Installer | MATLAB MCR|
+|---|---------- | ----------|
+|Mac OS X | <img src="img/osx.png" alt="Drawing" style="width: 100px;"/><br/><a href="http://files.vision.ai/vmx/Mac/VMX.pkg">VMX.pkg</a> | <img src="img/matlab.png" style="width:100px;"> <br/><a href="http://www.mathworks.com/supportfiles/downloads/R2014a/deployment_files/R2014a/installers/maci64/MCR_R2014a_maci64_installer.zip">MCR_mac.zip</a>|
+| | | |
+| | | |
+| | | |
+| | | |
+|Linux | Native Docker supported | included in docker |
+|Windows | boot2docker supported | included in docker |
+
+##
 
 If you need to download any of the individual VMX components, download
 an older version, or want to try a bleeding-edge experimental build,
 please visit `http://files.vision.ai/vmx/`.
 
+###Mac OS X
 The Mac OS X VMX bundle together with the MATLAB MCR contain all
-required libraries you will need for your Mac.  For Linux, you can
-either install all dependencies on your own (if installing VMX
-directly inside a system such as Ubuntu), or use our the official
-vision.ai Docker image.  If you choose to use install VMX on a Linux
+required libraries you will need for your Mac.  
+
+###Linux
+
+On linux we support a Docker installation.  With Docker installed, you simply need to download our <a href="https://github.com/VISIONAI/vmx-docker-manager">docker manager</a>.
+
+For example, to start vmx on port 3000:
+
+```
+git clone git@github.com:VISIONAI/vmx-docker-manager.git
+
+cd vmx-docker-manager
+
+./vmx start 3000
+```
+
+
+For information on installing docker please see the [Docker Documentation](https://docs.docker.com/installation/#installation)
+
+If you choose to use install VMX on a Linux
 machine without using Docker, please refer to our Dockerfile to see
 the required packages and libraries.
+
+##Defaults
 
 VMX server will look for the MCR inside the following default
 locations:
 
 OS | Default MCR location
 ------- | ---------
-Linux    | /usr/local/MATLAB/MATLAB_Compiler_Runtime/
-Mac OS X | /Applications/MATLAB/MATLAB_Compiler_Runtime/
+Linux    | Brought in as a volume from visionai/vmxmcr to `/root/MATLAB/`
+Mac OS X | `/Applications/MATLAB/MATLAB_Compiler_Runtime/`
 
 The MCR field of the VMX `config.json` configuration file (See
 [Configuring VMX](#configuration)) points to the MCR directory and can
 be set to anything you like if you choose to install the MCR in an
 unorthodox location.
 
-### Linux notes
+### Linux Binaries
 
-For Linux, you are free to install VMX anywhere you would like.
-Typical Linux install directories are `/vmx/build/` or `~/vmx/`. In
-this scenario the location of the `VMX binary ` will be
-`/vmx/build/VMX` and the location of the `VMX server binary` will be
-`/vmx/build/VMXserver`.
+When you run `./vmx init` (or `./vmx start PORT` for the first time), a docker container with the binaries is started, which creates a volume at `/vmx/build`
 
 ### Mac OS X notes
 
@@ -74,27 +95,10 @@ the `VMX binary ` will be `/Applications/VMX.app/Contents/MacOS/` and
 the location of the `VMX server binary` will be
 `/Applications/VMX.app/Contents/MacOS/VMXserer.app/Contents/MacOS/`.
 
-To uninstall in Mac OS X, simply remove the /Applications/VMX.app folder into your Trash.  VMX stores all of its files within this directory, so be sure to back up your models if you're created any of your own.
+To uninstall in Mac OS X, simply remove the /Applications/VMX.app folder into your Trash.  VMX stores all of its files within this directory, so be sure to back up your models if you have created any of your own.
 
 
-### Docker notes
 
-Docker is the easiest way to install VMX, as it bundles *all*
-dependencies and install steps into one command:
-
-```sh
-docker pull visionai/vmx
-```
-
-You can install docker directly on your Linux machine using apt-get,
-or on your Mac OS X / Windows computer via boot2docker.  You can find
-information about Docker at [http://www.docker.com](http://www.docker.com) and information bout
-boot2docker at [https://github.com/boot2docker/boot2docker](https://github.com/boot2docker/boot2docker).
-
-You can also find a set of useful Docker command line scripts at the
-following github repository:
-
-[VISIONAI/vmx-docker-manager](https://github.com/VISIONAI/vmx-docker-manager)
 
 ## Activating VMX
 
