@@ -115,16 +115,8 @@ Once you've obtained a valid VMX key, you can perform the activation
 procedure on the command line:
 
 ```sh
-./activate.sh a-special-key-you-got-from-vision-ai
+./activate.sh key email
 ```
-
-Alternative, if VMX is already running on port 3000, you can issue a
-curl POST request:
-
-```sh
-curl -X POST http://localhost:3000/activate/a-special-key-you-got-from-vision-ai
-```
-
 
 This documentation can be found at
 [docs.vision.ai](http://docs.vision.ai).
