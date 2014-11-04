@@ -1,4 +1,4 @@
-# Welcome to VMX Documentation
+# VMX Documentation
 
 
 The VMX Object Detection Engine comes with a highly-optimized visual
