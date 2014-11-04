@@ -155,6 +155,22 @@ cd /Applications/VMX.app/Contents/MacOS/VMXserver.app/Contents/MacOS/
 ```
 
 Or you can visit
-[http://localhost:3000/check](http://localhost:3000/check) in your browser.
+[http://localhost:3000/check](http://localhost:3000/check) in your
+browser.
+
+## Updating VMX
+
+Your VMX license will work with all 0.x.x releases, leading up to
+the 1.0 release. To check for more recent VMX versions, see
+[https://files.vision.ai/vmx/](https://files.vision.ai/vmx), but
+vision.ai will generally send announcements about new releases.  On
+Mac OS X, you can just download the most recent installer: it will
+overwrite the old binaries, automatically transfer over your existing
+license, and leave your models intact. To be safe, it is a good idea
+to backup your `config.json` file which contains the key and license
+information to run future versions of VMX on **your** computer.  When
+running the VMX installer a second time, the installer will save your
+old config files to `/tmp/vmx_installer.config.json` and
+`/tmp/vmx_installer.settings.yml`.
 
 ***Copyright 2013-2014 vision.ai, LLC. All rights reserved.***
