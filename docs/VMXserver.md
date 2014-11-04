@@ -63,10 +63,10 @@ Here is an example (note that the port starts with a colon)
 
 This will launch a new VMXserver process with the /www/vmx/ base
 directory and "f7" as the name of the session.  It will try to load a
-model called "none" which isn't goint to exist (so nothing gets loaded
+model called "none" which isn't going to exist (so nothing gets loaded
 initially), and it will run over port :8081.  All interaction with the
 VMXserver is done by sending HTTP requests to localhost:8081. To start
-the interaction, you should either manually or programatically send
+the interaction, you should either manually or programmatically send
 the HTTP request to localhost:8081 with a properly formatted JSON
 object.  All VMX inputs and outputs are in JSON format, and VMX server
 will return an error if it cannot parse the input correctly or of in
@@ -231,7 +231,7 @@ curl -X POST -d '{"command:"get_params"}' localhost:8081
 ### Getting the config object
 
 The config object is used for controlling debug parameters of
-VMXserver (the contents of `config.json`) programatically.  You can
+VMXserver (the contents of `config.json`) programmatically.  You can
 get the config object as follows:
 
 ```sh
