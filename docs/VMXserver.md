@@ -18,7 +18,7 @@ starts.
   "models"        : "/vmx/models/",
   "sessions"      : "/vmx/sessions/",
   "data"          : "/vmx/data",
-  "pretrained"    : "99ff9ba5c9c05078d54d9fbd49872a2c",
+  "pretrained"    : "3f61ce5c7642bc2f24f7286f600b3e6b",
   "log_images"    : false,
   "log_memory"    : false,
   "display_images": false
