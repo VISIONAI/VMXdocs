@@ -1,5 +1,11 @@
 # VMX Documentation
 
+Welcome to the VMX Documentation pages.  VMX is a web-based object
+recognition server made by vision.ai.
+
+---
+
+# About VMX
 
 The VMX Object Detection Engine comes with a highly-optimized visual
 object detection algorithm engineered for speed, accuracy, and
@@ -180,4 +186,4 @@ running the VMX installer a second time, the installer will save your
 old config files to `/tmp/vmx_installer.config.json` and
 `/tmp/vmx_installer.settings.yml`.
 
-***Copyright 2013-2014 vision.ai, LLC. All rights reserved.***
+
