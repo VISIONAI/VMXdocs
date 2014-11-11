@@ -125,3 +125,16 @@ div.source-links {
 .container .text-muted {
   margin: 20px 0;
 }
+
+h1, h2, h3 {
+    color: #444;
+}
+
+div.col-md-9 h1:first-of-type {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 300;
+}
+div.col-md-9 p:first-of-type {
+    text-align: center;
+}
