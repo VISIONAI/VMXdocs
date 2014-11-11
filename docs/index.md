@@ -59,7 +59,7 @@ On linux we support a Docker installation.  With Docker installed, you simply ne
 For example, to start vmx on port 3000:
 
 ```
-git clone git@github.com:VISIONAI/vmx-docker-manager.git
+git clone https://github.com/VISIONAI/vmx-docker-manager.git
 
 cd vmx-docker-manager
 
