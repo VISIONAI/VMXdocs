@@ -5,6 +5,27 @@ The VMX Vision App Builder is one of the most powerful apps running on
 top of the VMX API.  Inside the App Builder you can create models and
 interact with them in real time.
 
+## External Source
+
+To set the external source to be other than the webcam, simply load
+the VMX App Builder and hit **Deny** when VMX asks to use your webcam.
+
+When choosing an external source, you have several options:
+
+#### Load from a custom URL
+
+A custom URL allows you to use just about any IPcam.  Any URL which
+returns an image can be used as an image stream.
+
+#### Load from /random
+
+This will randomly cycle through all model images inside VMX.
+
+#### Load from models/#model_uuid/stream
+
+You can also randomly cycle through all model images inside a specific
+model folder.
+
 ## Loading Models
 
 To load a model, just click the "Load Model" button.  A new session
