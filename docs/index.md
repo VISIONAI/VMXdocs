@@ -7,36 +7,39 @@ recognition server made by vision.ai, LLC.
 
 # About VMX
 
-The VMX Object Detection Engine comes with a highly-optimized visual
-object detection algorithm engineered for speed, accuracy, and
-ease-of-use.  VMX lets you quickly train new object models as well use
+VMX consists of a visual object detection algorithm engineered for
+speed, accuracy, and a web-based interface for building vision
+applications.  VMX lets you quickly train new object models and use
 those models as object detectors for recognizing, localizing, and
 tracking objects in images and videos. The VMX Engine runs as a server
 and uses a simple JSON-based command API so you can build apps in your
-favorite programming language as well as interact with VMX over the
-HTTP protocol.  VMX can also take commands from standard input
-(*command line support is built-in*).  VMX is developed and maintained
-by [vision.ai, LLC](http://vision.ai).
+favorite programming language and talk to VMX over HTTP.  VMX can also
+take commands from standard input (*command line support is
+built-in*).  VMX is developed and maintained by
+[vision.ai, LLC](http://vision.ai).
 
 VMX runs on your personal computer, with native installers for Mac OS
-X and Linux, as well as a Docker support which supports Windows, Mac
-OS X, and Linux.  The VMX package consists of VMX Server, VMX Middle,
-and the VMX App Builder.
+X and Linux, as well as [Docker](http://www.docker.com) support for
+all three major computing platforms: Windows (via
+[boot2docker](http://boot2docker.io/)), Mac OS X, and Linux.  The
+standalone VMX software package consists of three components: VMX
+Server, VMX Middle, and the VMX App Builder.
 
-This page focuses on installation and activation. To learn how to use
-the VMX App Builder, see [VMX App Builder Docs](VMXAppBuilder.md). To
-learn how to use the VMX REST API, see
-[VMX REST API Docs](VMXmiddle.md). To learn about VMX server
-internals, how models and sessions are organized on disk, and how to
-use the VMX server directly, see [VMX Server Docs](VMXserver.md).
+This page focuses on installation and activation. If you're interested
+in learning how to use the VMX App Builder GUI, see
+[VMX App Builder Docs](VMXAppBuilder.md). To learn about the VMX REST
+API and building an application on top of VMX, see
+[VMX REST API Docs](VMXmiddle.md). Finally, VMX server internals,
+model and session directory structures, and VMX server command-line
+interaction is described in [VMX Server Docs](VMXserver.md).
 
 ---
 
 ## Installing VMX
 
-You can download a VMX installer for Mac OS X, or use a Docker image
+You can download a VMX installer for Mac OS X, or use Docker
 when using Linux. VMX requires v8.3 of the Matlab Compiler Runtime
-(MCR) R2014a, which is a separate 1.6GB download from the Mathworks
+(MCR) R2014a -- a separate 1.6GB download from the Mathworks, Inc
 website.  When using Docker, all dependencies including the MATLAB MCR
 will be automatically downloaded.
 
@@ -60,9 +63,12 @@ want to match your download against our MD5 checksums, please visit
 
 ### Linux
 
-On linux we support a Docker installation.  With Docker installed, you simply need to download our <a href="https://github.com/VISIONAI/vmx-docker-manager">docker manager</a>.
+On Linux, we support a Docker installation.  After Docker is
+installed, download vision.ai's <a
+href="https://github.com/VISIONAI/vmx-docker-manager">docker
+manager</a>.
 
-For example, to start vmx on port 3000:
+For example, to start VMX on port 3000:
 
 ```
 git clone https://github.com/VISIONAI/vmx-docker-manager.git
@@ -79,9 +85,8 @@ volume at `/vmx/build`
 For information on installing docker please see the
 [Docker Documentation](https://docs.docker.com/installation/#installation)
 
-If you choose to use install VMX on a Linux machine without using
-Docker, please refer to our Dockerfile to see the required packages
-and libraries.
+If you choose to install VMX on a Linux machine without Docker, please
+refer to our Dockerfiles to see the required packages and libraries.
 
 ### boot2docker
 
@@ -110,18 +115,17 @@ different location.
 
 ### Mac OS X notes
 
-For MacOSX, VMX is typically installed into either
-`/Applications/VMX.app/` or `~/Applications/VMX.app/`. The location of
-the `VMX binary ` will be `/Applications/VMX.app/Contents/MacOS/` and
-the location of the `VMX server binary` will be
+On MacOSX, VMX installs into `/Applications/VMX.app/` or
+`~/Applications/VMX.app/`. The location of the `VMX binary ` will be
+`/Applications/VMX.app/Contents/MacOS/` and the location of the `VMX
+server binary` will be
 `/Applications/VMX.app/Contents/MacOS/VMXserer.app/Contents/MacOS/`.
 
-To uninstall in Mac OS X, simply move the `/Applications/VMX.app`
-folder into your Trash.  VMX stores all of its files within this
-directory, so be sure to back up your models if you're created any of
-your own.
+To uninstall in Mac OS X, move the `/Applications/VMX.app` folder into
+your Trash.  VMX stores models inside this directory, so be sure to
+back up your models before uninstalling.
 
-The MAC OS X installer will use `/tmp/mcr_cache` as the MCR cache
+The Mac OS X installer will use `/tmp/mcr_cache` as the MCR cache
 directory.  If you're having issues with installation/activation, make
 sure you have read/write permissions for this folder.  You can also
 try removing the directory `/tmp/mcr_cache` in the case it gets corrupted.
@@ -175,15 +179,14 @@ browser.
 
 Your VMX license will work with all 0.x.x releases, leading up to
 the 1.0 release. To check for more recent VMX versions, see
-[https://files.vision.ai/vmx/](https://files.vision.ai/vmx), but
-vision.ai will generally send announcements about new releases.  On
-Mac OS X, you can just download the most recent installer: it will
-overwrite the old binaries, automatically transfer over your existing
-license, and leave your models intact. To be safe, it is a good idea
-to backup your `config.json` file which contains the key and license
-information to run future versions of VMX on **your** computer.  When
-running the VMX installer a second time, the installer will save your
-old config files to `/tmp/vmx_installer.config.json` and
+[https://files.vision.ai/vmx/](https://files.vision.ai/vmx).  On Mac
+OS X, you can download the most recent installer: it will overwrite
+the old binaries, automatically transfer over your existing license,
+and leave your models intact. To be safe, it is a good idea to backup
+your `config.json` file which contains the key and license information
+to run future versions of VMX on **your** computer.  When running the
+VMX installer a second time, the installer will save your old config
+files to `/tmp/vmx_installer.config.json` and
 `/tmp/vmx_installer.settings.yml`.
 
 
