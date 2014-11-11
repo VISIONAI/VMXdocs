@@ -1,8 +1,9 @@
-site_name: VMX Docs
+site_name: VMX Documentation
 site_description: VMX Documentation by vision.ai, LLC
 theme_dir: custom_theme
 site_favicon: img/favicon.ico
 use_directory_urls: false
+
 pages:
 - ['index.md', 'Introduction']
 - ['VMXAppBuilder.md', 'App Builder']
