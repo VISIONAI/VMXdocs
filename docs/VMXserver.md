@@ -9,9 +9,9 @@ VMX models are organized on your hard drive.
 
 ## Configuring VMX server
 
-The VMX configuration file `config.json` lives right next to the
-VMXserver binary and contains settings which can be set before VMX
-starts.
+The VMX configuration file `config.json` is located in the same
+directory as the VMXserver binary and contains settings which can be
+set before VMX starts.
 
 ```javascript
 {
@@ -142,8 +142,8 @@ these functions.
 
 #### Listing models
 
-The command `list_models` will return a listing of UUIDs which are
-inside the current VMX directory.
+The command `list_models` will return a listing of UUIDs inside the
+current VMX directory.
 
 ```sh
 curl -X POST -d '{"command:"save_model","model_name":"new_model"}'
