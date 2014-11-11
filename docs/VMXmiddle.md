@@ -34,5 +34,3 @@ installation needs to be activated.  Try visiting the
 `http://localhost:3000/check` URL and confirm that the licensed field
 is `false`.
 
-
-***Copyright 2013-2014 vision.ai, LLC. All rights reserved.***
