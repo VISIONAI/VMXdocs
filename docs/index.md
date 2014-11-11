@@ -52,7 +52,7 @@ an older version, want to try a bleeding-edge experimental build, or
 want to match your download against our MD5 checksums, please visit
 [https://files.vision.ai/vmx](https://files.vision.ai/vmx).
 
-###Linux
+### Linux
 
 On linux we support a Docker installation.  With Docker installed, you simply need to download our <a href="https://github.com/VISIONAI/vmx-docker-manager">docker manager</a>.
 
@@ -77,6 +77,14 @@ If you choose to use install VMX on a Linux machine without using
 Docker, please refer to our Dockerfile to see the required packages
 and libraries.
 
+### boot2docker
+
+[boot2docker](http://boot2docker.io/) is a lightweight Linux
+distribution made specifically to run Docker containers.  It runs
+completely from RAM, weight ~27MB and boots in ~5s(YMMV).  This allows
+you to run VMX on a Windows computer, as well as provide an
+alternative method for installing on a Mac OS X system.
+
 ### Default MCR Location
 
 VMX server will look for the MCR inside the following default
@@ -93,7 +101,6 @@ The MCR field of the VMX `config.json` configuration file (See
 [Configuring VMX](VMXserver.md)) points to the MCR directory and can
 be set to anything you like if you choose to install the MCR in a
 different location.
-
 
 ### Mac OS X notes
 
@@ -126,7 +133,8 @@ internet connection to obtain a valid license from the vision.ai
 activation server.  Activation is per-machine, and a new key/license
 is required for installation on a new machine.  Activation is usually
 performed from within the VMX App Builder program, but can also be
-done from the command line.  You can visit the
+done from the command line.  Simply start the VMX application and the
+GUI will help you activate the software.  You can visit the
 [vision.ai forums](https://forums.vision.ai) if you are having issues
 with activation.
 
@@ -134,7 +142,6 @@ A valid VMX beta key corresponding to a personal license can be
 purchased from [https://beta.vision.ai](https://beta.vision.ai).
 Please see [vision.ai forums](https://forums.vision.ai) to learn how
 to be a beta tester.
-
 
 ### Command line activation
 Once you've obtained a valid VMX key, you can perform the activation
