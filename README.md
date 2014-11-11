@@ -17,8 +17,11 @@ to the documentation server.
 ### seeing changes to docs live
 
 ```sh
-mkdocs serve
+./serve.sh
 ```
+
+This will broadcast the docs on the local network, so that they can be
+viewed on iOS/Android devices.
 
 ### deploying docs
 
