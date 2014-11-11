@@ -113,4 +113,4 @@ positives to the negative side, and vice-versa.  In very difficult
 training scenarios, you will have to use this Model Editor to clean up
 any mistakes made by the automatic learning algorithm.
 
-***Copyright 2013-2014 vision.ai, LLC. All rights reserved.***
+
