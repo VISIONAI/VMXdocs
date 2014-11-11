@@ -325,4 +325,3 @@ Here is a typical directory structure on a deployed system:
 * /vmx/sessions/session_id/log.txt
 
 
-***Copyright 2013-2014 vision.ai, LLC. All rights reserved.***
