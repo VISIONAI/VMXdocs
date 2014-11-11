@@ -1,10 +1,12 @@
-# VMX Middle: REST API
+# VMX REST API
 
 
 VMX Middle runs on top of VMX server and serves the VMX App Builder
 over HTTP.  This document describes the REST API provided by VMX.
 
-## The VMX REST API
+---
+
+## Routes
 
 
 VERB    | Route   | Description

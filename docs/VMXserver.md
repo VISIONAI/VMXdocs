@@ -1,8 +1,11 @@
-# VMX Server: Object Detection Engine and API
+# VMX Server: Engine API
 
-This readme will first focus on installation/activation, then describe
-the available VMX server API commands, and conclude with an overview
-how VMX models are organized on your hard drive.
+The VMX server performs the object recognition computations required
+to deliver a robust and real-time object detection experience.  This
+page explains the available VMX server API commands, and describe how
+VMX models are organized on your hard drive.
+
+---
 
 ## Configuring VMX server
 
@@ -137,7 +140,7 @@ Where ... corresponds to additional arguments that are required to
 make sense of the command.  Here is a short description of each of
 these functions.
 
-### Listing models
+#### Listing models
 
 The command `list_models` will return a listing of UUIDs which are
 inside the current VMX directory.
@@ -146,7 +149,7 @@ inside the current VMX directory.
 curl -X POST -d '{"command:"save_model","model_name":"new_model"}'
 ```
 
-### Loading a model
+#### Loading a model
 
 To load a model or a set of models, you need a list of UUIDs. In the
 context of loading models, a UUID can be either a uuid string, the
@@ -165,7 +168,7 @@ curl -X POST -d '{"command":"load_model","uuids":["/incoming/model.data"],"compi
 curl -X POST -d '{"command":"load_model","uuids":["http://vision.ai/uuid1/model.data"],"compiled":false}' localhost:8081
 ```
 
-### Creating a Model
+#### Creating a Model
 To create a new model, we simply send a sequence of images with
 bounding boxes, and the name of the new model name (`cls` in this case).
 
@@ -175,7 +178,7 @@ bounding boxes, and the name of the new model name (`cls` in this case).
 "2014-09-09T3:43.003Z", "cls" : "new_object"}]}
 ```
 
-### Saving a model
+#### Saving a model
 When no model_name is specified, it will use the current name assigned
 to the model.  A new model_name can be provided, which will the save
 the model with this new name and return a new model with the name updated.
@@ -184,7 +187,7 @@ the model with this new name and return a new model with the name updated.
 curl -X POST -d '{"command:"save_model","model_name":"new_model"}'
 ```
 
-### Processing an image (detecting objects)
+#### Processing an image (detecting objects)
 
 To perform object detection, you simply call process_image. Process
 Image will return a set of bounding boxes associated with the image.
@@ -199,7 +202,7 @@ The input to `process_image` also takes a params object.
 {"command":"process_image":"image":"/VMXdata/first.jpg","fast":1,"scale":1}
 ```
 
-### Showing a model
+#### Showing a model
 
 Showing a model consists of extracting images for the postive and
 negative examples used in the underlying machine learning model.
@@ -208,7 +211,7 @@ negative examples used in the underlying machine learning model.
 curl -X POST -d '{"command:"show_model",...}' localhost:8081
 ```
 
-### Editing a model
+#### Editing a model
 
 Editing a model consists of re-assigning negatives to the positive
 class, removing negatives, re-assigning positives to the negative
@@ -220,7 +223,7 @@ indefinitely.
 curl -X POST -d '{"command:"edit_model",...}' localhost:8081
 ```
 
-### Getting detection params
+#### Getting detection params
 
 You can query the current detection params.
 
@@ -228,7 +231,7 @@ You can query the current detection params.
 curl -X POST -d '{"command:"get_params"}' localhost:8081
 ```
 
-### Getting the config object
+#### Getting the config object
 
 The config object is used for controlling debug parameters of
 VMXserver (the contents of `config.json`) programmatically.  You can
@@ -238,12 +241,12 @@ get the config object as follows:
 curl -X POST -d '{"command:"get_config"}' localhost:8081
 ```
 
-### Setting the config object
+#### Setting the config object
 ```sh
 curl -X POST -d '{"command:"set_config","log_images":"true"}' localhost:8081
 ```
 
-### Shutting down VMX server
+#### Shutting down VMX server
 
 There is a simple command which lets you shut down a VMX session and
 free up memory on your machine.
@@ -252,7 +255,9 @@ free up memory on your machine.
 curl -X POST -d '{"command:"exit"}' localhost:8081
 ```
 
-## VMX Directory: Models
+## VMX Directory Structure
+
+#### Models
 
 In order to recognize something in an image, you need to first learn a
 model.  A model is a collection of positive and negative examples used
@@ -283,7 +288,7 @@ model as used by VMX.
 *NOTE*: As you train more and more models, you should backup your models
 directory so that you do not lose any of your work.
 
-## VMX Directory: Sessions
+#### Sessions
 
 Many applications require multiple object detectors, so we've made it
 easy to run multiple VMX processes.  Each VMX process can have
@@ -306,22 +311,22 @@ directory once you've made sure no VMX processes are active.
 *NOTE*: The best way to launch main VMX processes is via the REST API
  provided in the VMX package.
 
-## VMX Directory: Sessions
+---
+
 Here is a typical directory structure on a deployed system:
 
 * /vmx/models
-* /vmx/models/model_uuid
-* /vmx/models/model_uuid/model.json
-* /vmx/models/model_uuid/model.data
-* /vmx/models/model_uuid/image.jpg
-* /vmx/models/model_uuid/data_set.json
-* /vmx/models/model_uuid/data_set
-* /vmx/models/model_uuid/data_set/000001.jpg
-* /vmx/models/model_uuid/data_set/000001.json
-
+* /vmx/models/#model_uuid
+* /vmx/models/#model_uuid/model.json
+* /vmx/models/#model_uuid/model.data
+* /vmx/models/#model_uuid/image.jpg
+* /vmx/models/#model_uuid/data_set.json
+* /vmx/models/#model_uuid/data_set
+* /vmx/models/#model_uuid/data_set/000001.jpg
+* /vmx/models/#model_uuid/data_set/000001.json
 * /vmx/sessions
-* /vmx/sessions/session_id/
-* /vmx/sessions/session_id/model.json
-* /vmx/sessions/session_id/log.txt
+* /vmx/sessions/#session_id/
+* /vmx/sessions/#session_id/model.json
+* /vmx/sessions/#session_id/log.txt
 
 
