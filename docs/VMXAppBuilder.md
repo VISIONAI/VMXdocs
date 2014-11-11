@@ -83,7 +83,7 @@ image is treated as a negative.
 #### Learning Update Threshold
 The threshold which determines if a candidate window should be
 considered a positive.  The default of 0.0 is too high for certain
-difficult objects, or objects not initialized with enoughd data.  If
+difficult objects, or objects not initialized with enough data.  If
 you are having an issue getting Learning Mode to pick up new examples,
 consider setting this threshold to -1, acquiring new examples, then
 setting it back to 0.0.  Keeping this threshold at -1 for a long time
@@ -104,7 +104,7 @@ value of 3000.
 
 ## Creating Models
 
-To create a model, click on on the "eye" icon.
+To create a model, click on the "eye" icon.
 
 ---
 
