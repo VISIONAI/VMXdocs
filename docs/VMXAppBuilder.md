@@ -8,7 +8,32 @@ as well as export your data.
 
 ---
 
-## External Source
+## Managing multiple VMX sessions
+
+VMX App Builder has a built-in VMX session manager, so you can work
+with multiple models at the same time.  Each VMX session corresponds
+to a separate VMX process.  A single model inside a session will
+typically occupy around 150 MB (closer to 500MB during training), so
+you shouldn't try to open up too many VMX sessions at the same time.
+
+After you load or create a model, VMX will list the names of available
+sessions right below the "Load Model" button.  When you start VMX App
+Builder, all sessions are in the "detached" state.  Clicking one of
+the model names will place it in the "attached" state.
+
+#### List Detectors Button 
+
+<span><i class="fa fa-2x fa-list fa-fw"></i></span>
+
+
+#### Detach Detector Button
+
+<span><i class="fa fa-2x fa-external-link fa-fw"></i></span>
+
+## External Source 
+
+<span><i class="fa fa-4x fa-video-camera fa-fw"></i></span>
+
 
 To set the external source to be other than the webcam, simply load
 the VMX App Builder and hit **Deny** when VMX asks to use your webcam.
@@ -33,8 +58,19 @@ model folder.
 
 ## Loading Models
 
-To load a model, just click the "Load Model" button.  A new session
-will be created with the model you just selected.
+<div class="input-group">
+  <span class="input-group-btn">
+    <a class='btn btn-primary detector-chooser-spinner ladda-button'>
+      <span><i class="fa fa-folder-open"></i></span> 
+      Load Model
+    </a>
+  </span>
+</div>
+
+
+To load a model, just click the "Load Model" button inside the VMX App
+Builder.  A new session will be created with the model you just
+selected.
 
 ---
 
@@ -100,19 +136,48 @@ consider setting the detector quality to 1.0.  If you want to absorb
 more negatives during learning, consider setting this to the maximum
 value of 3000.
 
+## Debugging Detectors
+
+You can watch the top scoring detection image from each session by
+clicking on the "bug" icon.
+
+<span><i class="fa fa-4x fa-bug fa-fw"></i></span>
+
+
 ---
 
 ## Creating Models
 
-To create a model, click on the "eye" icon.
+To create a model, click on the "eye" icon inside VMX App Builder.
+
+<span><i class="fa fa-4x fa-eye fa-fw"></i></span>
+
+The "Create Model" pane will let you select objects from the main VMX
+canvas. Simply draw a rectangle around your object of interest.  While
+VMX will often work from a single positive example, it is
+***beneficial to start with 3-5 initial examples***.  To help VMX
+bootstrap a good model, move the object of interest between successive
+selections.
+
+**NOTE:** The second time you create a model, your old selections will
+  still be in the queue.  Simple remove them if you are training a new
+  object.
+
+After you have created an initial model, time to make it better by
+using the automatic learning mode.
 
 ---
 
 ## Learning Mode
 
 To improve a model, it can automatically go into "learning mode."
-While in Learning Mode, the model will grow over time but it will
-become better.
+While in Learning Mode, VMX will automatically figure out which new
+examples belong to the object of interest.  When learning, the model
+will become larger as well as become more powerful.
+
+If you are having an issue getting Learning Mode to assimilate new
+positive examples, consider momentarily setting the "Learning Update
+Threshold" to something smaller like -1.
 
 ---
 
