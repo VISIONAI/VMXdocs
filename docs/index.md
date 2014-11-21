@@ -1,4 +1,4 @@
-# VMX Documentation
+# VMX Docs
 
 Welcome to the VMX Documentation pages.  VMX is a web-based object
 recognition server made by vision.ai, LLC.
