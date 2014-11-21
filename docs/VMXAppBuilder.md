@@ -190,3 +190,42 @@ training scenarios, you will have to use this Model Editor to clean up
 any mistakes made by the automatic learning algorithm.
 
 
+---
+
+## URL Parameters
+
+You can change certain VMX App Builder settings by passing in URL
+parameters.  The default is URL is `http://localhost:3000` but you can
+make it more complex by adding a `#?` for the first field and adding
+other fields with a `&` delimiter.
+
+#### Changing width/height
+Height and width are integers.  Defaults to 320x240, but you can
+make it 640x480 or 160x120.
+
+`http://localhost:3000/#?width=640&height=480`
+
+#### Auto-attaching to all sessions
+
+`http://localhost:3000/#?auto_attach=true`
+
+#### Turning on the tracking grid display
+
+`http://localhost:3000/#?show_grid=true`
+
+#### Making grid wiggle without detections
+
+`http://localhost:3000/#?grid_always=true`
+
+#### Not rendering the video input
+
+`http://localhost:3000/#?hide_video=true`
+
+#### Showing raw detection boxes (without tracking)
+
+`http://localhost:3000/#?show_raw_boxes=true`
+
+#### Passing in IP camera URL
+
+`http://localhost:3000/#?url=http://localhost:8081`
+
