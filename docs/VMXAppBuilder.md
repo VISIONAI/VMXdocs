@@ -229,3 +229,6 @@ make it 640x480 or 160x120.
 
 `http://localhost:3000/#?url=http://localhost:8081`
 
+#### Turning off mirror_mode (enabled by default)
+
+`http://localhost:3000/#?mirror_mode=false`
