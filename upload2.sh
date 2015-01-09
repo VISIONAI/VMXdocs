@@ -16,5 +16,5 @@ then
     echo 'not dirty'
     scp $F.gz root@files.vision.ai:/www/vmx/docs/
 else
-    echo 'dirty'
+    echo 'dirty, not uploading'
 fi
