@@ -33,6 +33,12 @@ This will send off the documentation to docs.vision.ai
 ./upload.sh
 ```
 
+### building standalone docs (to be bundled inside VMX)
+
+```sh
+./upload_local.sh
+```
+
 ### running nginx to serve the docs
 
 This requires a checkout of this directory on the docs file server
