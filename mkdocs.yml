@@ -1,5 +1,5 @@
-site_name: VMX Documentation
-site_description: VMX Documentation by vision.ai, LLC
+site_name: VMX Computer Vision Docs
+site_description: VMX Computer Vision Docs by vision.ai, LLC
 theme_dir: custom_theme
 site_favicon: img/favicon.ico
 use_directory_urls: false
@@ -10,4 +10,5 @@ pages:
 - ['VMXmiddle.md', 'REST API']
 - ['VMXserver.md', 'VMX Server']
 
-copyright: <i></i>&copy; <a href="http://vision.ai">vision.ai</a>
+copyright: <i></i>&copy; <a href="http://vision.ai">vision.ai</a> Docs Version:
+
