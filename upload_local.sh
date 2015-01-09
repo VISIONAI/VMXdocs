@@ -2,7 +2,7 @@
 mkdir tmp
 rm -rf tmp/docs
 cp -R site/ tmp/docs/
-F=VMXdocs_`git describe --tags --dirty`.tar
+F=VMXdocs_`git describe --tags`.tar
 cd tmp/
 rm ../$F.gz > /dev/null 2>&1
 tar cf ../$F docs/
@@ -14,7 +14,7 @@ gzip $F
 if [ "`ls $F.gz | grep dirty`" == "" ];
 then
     echo 'not dirty'
-    scp $F.gz root@files.vision.ai:/www/vmx/docs/
+    scp $F.gz root@files.vision.ai:/www/vmx/VMXdocs/
 else
     echo 'dirty, not uploading'
 fi
