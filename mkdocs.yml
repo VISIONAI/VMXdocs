@@ -6,8 +6,8 @@ use_directory_urls: false
 
 pages:
 - ['index.md', 'Introduction']
-- ['VMXAppBuilder.md', 'App Builder']
-- ['VMXmiddle.md', 'REST API']
-- ['VMXserver.md', 'VMX Server']
+- ['VMXAppBuilder.md', 'Learn VMX']
+- ['api.md', 'VMX API']
+- ['install.md', 'Installation']
 
 copyright: <i></i>&copy; <a href="http://vision.ai">vision.ai</a> Docs9
