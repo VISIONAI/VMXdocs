@@ -26,12 +26,12 @@ see [Learn VMX](VMXAppBuilder.md).
 ## VMX API
 If you want to interface with VMX from your favorite programming
 language, build a web-based vision app, or interact with a running VMX
-system, see [VMX API Docs](api.md).
+system, see [VMX API Docs](VMXapi.md).
 
 ## Installation
 
 Installation and deployment instructions are provided in
-[VMX Installation Docs](install.md). VMX runs on your personal
+[VMX Installation Docs](VMXinstall.md). VMX runs on your personal
 computer, with native installers for Mac OS X and Linux, as well as
 Docker container support for all three major personal computing
 platforms: Windows (via boot2docker), Mac OS X, and Linux.

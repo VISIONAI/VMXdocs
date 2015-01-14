@@ -79,7 +79,7 @@ Mac OS X | `/Applications/MATLAB/MATLAB_Compiler_Runtime/`
 ##
 
 The MCR field of the VMX `config.json` configuration file (See
-[Configuring VMX](install.md)) points to the MCR directory and can
+[Configuring VMX](VMXinstall.md) points to the MCR directory and can
 be set to anything you like if you choose to install the MCR in a
 different location.
 
