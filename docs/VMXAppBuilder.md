@@ -1,14 +1,64 @@
-# VMX Vision App Builder
+# Learn VMX
 
-The VMX Vision App Builder is a web-based GUI for interacting with
-your object detectors.  Inside the VMX Vision App Builder, you can set
-a variety of different input streams (webcam, IPcam, ...),
-interactively train new models, modify and customize existing models,
-as well as export your data.
+VMX's powerful GUI, called the "VMX Vision App Builder" is a web-based
+GUI for interacting with your object detectors.  Inside the VMX Vision
+App Builder, you can set a variety of different input streams (webcam,
+IPcam, ...), interactively train new models in as little as 1 minute,
+modify and customize existing models, as well as interact with running
+sessions.
+
+<img src="img/app_builder_intro.png" style="width:100%"/>
 
 ---
 
-## Managing multiple VMX sessions
+## Loading Models
+
+To load a model, just click the "Load Model" button at the top-left of
+the VMX App Builder.  You will be shown a listing of all of your
+models and you can sort them by name, date, or number of positive
+examples. A new session will be created with the model you click.
+
+<img src="img/load_model.png" style="width:100%"/>
+
+If you do not have any models to load, consider learning how to create
+models in the [Creating Models](VMXAppBuilder.md#creating-models) sections of this page.
+
+---
+
+## Creating Models
+<span><i class="fa fa-2x fa-eye fa-fw"></i></span>
+
+To create a model, click on the <i class="fa fa-eye"></i> icon inside VMX App Builder.
+
+<iframe width="210" height="158"
+src="//www.youtube.com/embed/gobBjO8zLdw" frameborder="0"
+allowfullscreen></iframe>
+
+<iframe width="210" height="158" src="//www.youtube.com/embed/lQahegSw-Ug" frameborder="0" allowfullscreen></iframe>
+
+
+<iframe width="210" height="158"
+src="//www.youtube.com/embed/19j62PrQdio" frameborder="0"
+allowfullscreen></iframe>
+
+The "Create Model" pane will let you select objects from the main VMX
+canvas. Simply draw a rectangle around your object of interest.  While
+VMX will often work from a single positive example, it is
+***beneficial to start with 3-5 initial examples***.  To help VMX
+bootstrap a good model, move the object of interest between successive
+selections.
+
+**NOTE:** The second time you create a model, your old selections will
+  still be in the queue.  Simple remove them if you are training a new
+  object.
+
+After you have created an initial model, time to make it better by
+using the automatic learning mode.
+
+---
+
+
+## Multiple detectors
 
 VMX App Builder has a built-in VMX session manager, so you can work
 with multiple models at the same time.  Each VMX session corresponds
@@ -21,7 +71,9 @@ sessions right below the "Load Model" button.  When you start VMX App
 Builder, all sessions are in the "detached" state.  Clicking one of
 the model names will place it in the "attached" state.
 
-#### List Detectors Button 
+#### List Detectors Button
+
+<!--<img src="img/list_sessions.png" style="width:100px"/>-->
 
 <span><i class="fa fa-2x fa-list fa-fw"></i></span>
 
@@ -30,49 +82,50 @@ the model names will place it in the "attached" state.
 
 <span><i class="fa fa-2x fa-external-link fa-fw"></i></span>
 
-## External Source 
+---
 
-<span><i class="fa fa-4x fa-video-camera fa-fw"></i></span>
+## Video Input
 
+<span><i class="fa fa-2x fa-video-camera fa-fw"></i></span>
+
+You can select the video input modal by clicking the <i class="fa
+fa-video-camera"></i> button or it is automatically loaded when a
+webcam cannot be found.  If you do not have a physical webcam, you can
+use one of the many popular free virtual camera programs (like
+[CamTwist](http://camtwiststudio.com/) on the Mac).  A virtual camera will additionally let you
+stream video from your desktop and application windows directly into VMX.
+
+<img src="img/video_input.png" style="width:100%"/>
 
 To set the external source to be other than the webcam, simply load
 the VMX App Builder and hit **Deny** when VMX asks to use your webcam.
 
 When choosing an external source, you have several options:
 
+#### Single Image Upload
+
+This will let you upload an image directly from your computer, tablet,
+or smartphone.  (This feature is currently **experimental** on iOS.)
+
 #### Load from a custom URL
 
 A custom URL allows you to use just about any IPcam.  Any URL which
-returns an image can be used as an image stream.
-
-#### Load from /random
-
-This will randomly cycle through all model images inside VMX.
+returns an image can be used as an image stream.  After the URL has
+been entered, use the "Preview URL" button to preview the stream.
 
 #### Load from models/#model_uuid/stream
 
 You can also randomly cycle through all model images inside a specific
 model folder.
 
+
+#### Load from /random
+
+This will randomly cycle through all model images inside VMX.
+
+
 ---
 
-## Loading Models
-
-<div class="input-group">
-  <span class="input-group-btn">
-    <a class='btn btn-primary detector-chooser-spinner ladda-button'>
-      <span><i class="fa fa-folder-open"></i></span> 
-      Load Model
-    </a>
-  </span>
-</div>
-
-
-To load a model, just click the "Load Model" button inside the VMX App
-Builder.  A new session will be created with the model you just
-selected.
-
----
 
 ## Model Parameters
 
@@ -136,6 +189,9 @@ consider setting the detector quality to 1.0.  If you want to absorb
 more negatives during learning, consider setting this to the maximum
 value of 3000.
 
+
+---
+
 ## Debugging Detectors
 
 You can watch the top scoring detection image from each session by
@@ -143,28 +199,6 @@ clicking on the "bug" icon.
 
 <span><i class="fa fa-4x fa-bug fa-fw"></i></span>
 
-
----
-
-## Creating Models
-
-To create a model, click on the "eye" icon inside VMX App Builder.
-
-<span><i class="fa fa-4x fa-eye fa-fw"></i></span>
-
-The "Create Model" pane will let you select objects from the main VMX
-canvas. Simply draw a rectangle around your object of interest.  While
-VMX will often work from a single positive example, it is
-***beneficial to start with 3-5 initial examples***.  To help VMX
-bootstrap a good model, move the object of interest between successive
-selections.
-
-**NOTE:** The second time you create a model, your old selections will
-  still be in the queue.  Simple remove them if you are training a new
-  object.
-
-After you have created an initial model, time to make it better by
-using the automatic learning mode.
 
 ---
 
@@ -189,6 +223,13 @@ positives to the negative side, and vice-versa.  In very difficult
 training scenarios, you will have to use this Model Editor to clean up
 any mistakes made by the automatic learning algorithm.
 
+<img src="img/model_editor.png" style="width:100%">
+
+---
+
+## Tracker Settings
+
+<span><i class="fa fa-2x fa-gears fa-fw"></i></span>
 
 ---
 
