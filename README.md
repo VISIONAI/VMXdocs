@@ -13,6 +13,12 @@ site.
 ./compile.sh
 ```
 
+If you don't want to embed Google Analytics code and build a tarball
+suitable for VMX standalone releases, run:
+```sh
+./compile_local.sh
+```
+
 This will generate a "site/" folder which can be bundled and sent off
 to the documentation server.
 
