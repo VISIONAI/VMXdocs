@@ -1,9 +1,14 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
 table {
   min-width: 100%;
 }
 
 body {
     padding-top: 70px;
+    margin-bottom: 60px;
 }
 
 ul.nav li.main {
@@ -106,10 +111,12 @@ div.source-links {
 
 .footer {
   position: absolute;
+  bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+
 }
 /* Custom page CSS
 -------------------------------------------------- */
@@ -138,3 +145,13 @@ div.col-md-9 h1:first-of-type {
 div.col-md-9 p:first-of-type {
     text-align: center;
 }
+
+/*
+h2:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -40px; 
+  height: 40px; 
+  visibility: hidden; 
+}
+*/
