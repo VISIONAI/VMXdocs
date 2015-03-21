@@ -1,7 +1,7 @@
 # VMX Documentation Generator
 
-Here you will find documentation in Markdown format and some scriptp
-to build the documentation and push it to
+Here you will find documentation in Markdown format and some scripts
+to build the VMX documentation and push it to
 [https://docs.vision.ai](docs.vision.ai).
 
 ### compiling docs (on local machine)
