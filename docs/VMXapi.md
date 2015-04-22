@@ -129,8 +129,7 @@ VMX in many different interesting scenarios.
 The input to `process_image` also takes a params object.
 
 ```sh
-{"command":"process_image":"image":"/VMXdata/first.jpg"}
-{"command":"process_image":"image":"/VMXdata/first.jpg","fast":1,"scale":1}
+{"command":"process_image","images":[{"image":"/VMXdata/first.jpg"}]}
 ```
 
 #### Showing a model
