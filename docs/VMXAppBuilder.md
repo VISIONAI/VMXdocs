@@ -244,30 +244,30 @@ other fields with a `&` delimiter.
 Height and width are integers.  Defaults to 320x240, but you can
 make it 640x480 or 160x120.
 
-`http://localhost:3000/#?width=640&height=480`
+`http://localhost:3000/#/?width=640&height=480`
 
 #### Auto-attaching to all sessions
 This will automatically attach all VMX sessions which have a loaded
 model.  Very cool for making a demo which automatically runs all of
 your detectors.
 
-`http://localhost:3000/#?auto_attach=true`
+`http://localhost:3000/#/?auto_attach=true`
 
 #### Turning on the tracking grid display
 
-`http://localhost:3000/#?show_grid=true`
+`http://localhost:3000/#/?show_grid=true`
 
 #### Making grid wiggle without detections
 
-`http://localhost:3000/#?grid_always=true`
+`http://localhost:3000/#/?grid_always=true`
 
 #### Not rendering the video input
 
-`http://localhost:3000/#?hide_video=true`
+`http://localhost:3000/#/?hide_video=true`
 
 #### Showing raw detection boxes (without tracking)
 
-`http://localhost:3000/#?show_raw_boxes=true`
+`http://localhost:3000/#/?show_raw_boxes=true`
 
 #### Passing in IP camera URL
 
@@ -276,7 +276,7 @@ the last successful request.  Can be used with an IP camera to stream
 images to VMX or from using a command line utility which streams
 locally hosted movies as an IP camera.
 
-`http://localhost:3000/#?url=http://localhost:8081`
+`http://localhost:3000/#/?url=http://localhost:8081`
 
 #### Setting the ipcam_delay
 
@@ -285,11 +285,11 @@ with `url`.
 
 To get images very quickly (20ms delay):
 
-`http://localhost:3000/#?url=http://localhost:8081&ipcam_delay=20`
+`http://localhost:3000/#/?url=http://localhost:8081&ipcam_delay=20`
 
 To get images slowly (2000ms delay):
 
-`http://localhost:3000/#?url=http://localhost:8081&ipcam_delay=2000`
+`http://localhost:3000/#/?url=http://localhost:8081&ipcam_delay=2000`
 
 
 #### Turning off mirror_mode (enabled by default)
@@ -298,4 +298,4 @@ This will give the original image so that text is oriented left-right
 for people to read.  Note that the default mode of operation is mirror
 mode so that you can interact with your detectors more naturally.
 
-`http://localhost:3000/#?mirror_mode=false`
+`http://localhost:3000/#/?mirror_mode=false`
