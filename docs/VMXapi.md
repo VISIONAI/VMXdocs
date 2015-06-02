@@ -4,7 +4,19 @@ VMX runs as a server and processes requests over HTTP.
 
 ---
 
+By default, VMX runs on port 3000.  If running locally, the address of
+VMX will be `http://localhost:3000` and if running remotely, the
+address will be something like `http://192.168.1.134:3000` where the
+IP address points to your server. If you're running on a vision.ai
+hosted machine which uses https, the address will be something like
+`https://demo.vision.ai/`, without the port.
+
 ## VMX REST API
+
+The VMX REST API allows you to send commands to VMX to create new
+detection processes, perform object detection, create new models, as
+well as return the images inside a model's training set. The input and
+outputs are always in JSON format (unless specified otherwise).
 
 VERB    | Route   | Description
 ----|-------------| ----------
@@ -25,6 +37,215 @@ GET  | /models/#ModelId/model.data | Extract model file
 GET  | /models/#ModelId/data_set/first.jpg | Return first image in model
 GET  | /models/#ModelId/data_set/image.jpg | Return next image in model
 GET  | /models/#ModelId/data_set/random.jpg | Return random image in model
+
+#### Using curl and jq
+
+To use the VMX REST API from the command line, we will be using `curl`
+to send/receive requests and `jq` to render the resulting JSONs with
+color. Your system should already have curl installed, and jq can be
+downloaded from
+[http://stedolan.github.io/jq/](http://stedolan.github.io/jq/).
+
+## Example 1: Check the number of models and sessions
+
+In this example, we will use the command line to check the number of
+models as well as the number of open sessions.  We will then create a
+new session with the model called "eyes", detect these objects
+in a single image, and then shut down the session.
+
+**Command line input**
+```
+curl http://localhost:3000/model | jq .
+```
+
+**Output**
+```
+{
+  "data": [
+    {
+      "image": "models/008db1b3-acd3-49fe-94ea-a51297926ada/image.jpg",
+      "history": [],
+      "num_pos": 1000,
+      "num_neg": 462,
+      "size": [
+        10,
+        8
+      ],
+      "uuid": "008db1b3-acd3-49fe-94ea-a51297926ada",
+      "name": "hoc_faces",
+      "start_time": "2015-04-14T06:04:23.684Z",
+      "end_time": "2015-04-14T06:42:57.985Z",
+      "meta": ""
+    },
+    {
+      "image": "models/05883a2b-c2f8-4cc9-bdc3-a17dd38e7c6f/image.jpg",
+      "history": [],
+      "num_pos": 100,
+      "num_neg": 200,
+      "size": [
+        10,
+        8
+      ],
+      "uuid": "05883a2b-c2f8-4cc9-bdc3-a17dd38e7c6f",
+      "name": "joker",
+      "start_time": "2015-03-27T02:00:51.784Z",
+      "end_time": "2015-04-13T08:29:21.932Z",
+      "meta": ""
+    }
+  ...
+```
+
+This output can become quite long. To quickly count the number of
+available models from the command line, you can simply use the jq JSON
+command line processor as follows:
+
+**Command line input**
+```
+curl -s http://localhost:3000/model | jq '.data | length'
+```
+
+**Output**
+```
+64
+```
+
+Let's now check the number of running VMX sessions:
+
+**Command line input**
+```
+curl -s http://localhost:3000/session | jq '.data | length'
+```
+
+**Output**
+```
+0
+```
+
+We have 64 models, but no loaded sessions, so let's create a new
+session by POSTing to /session.
+
+## Example 2: Load "eyes" model and get detections
+
+Let's first find the UUID of the
+model corresponding to the name "eyes". You can manually inspect
+the returned JSON, or use jq to find the data element with the
+matching name.
+
+**Command line input**
+```
+curl -s http://localhost:3000/model | jq -r '.data[] | select(.name=="eyes") .uuid'
+```
+
+**Output**
+```
+e018112b-c9ba-437f-959d-49280acb8c9c
+```
+
+UUIDs are unique and assigned to object models at creation time, so
+your personal model library will have different UUIDs.  ***Note:*** If
+you are showing 0 models, then you'll need to create some using the
+VMX GUI.
+
+Let's create a new VMX session with this model UUID.
+
+**Command line input**
+```
+curl -X POST -d '{"uuids":["e018112b-c9ba-437f-959d-49280acb8c9c"]}' http://localhost:3000/session
+```
+
+The output will give us a new session id.
+
+**Output**
+```
+
+{ "data": {
+    "id": "15c3a5dc-cffb-43ac-a5dd-6755f5376c81"
+  }
+}
+```
+
+We can now verify that the number of sessions is 1.
+
+**Command line input**
+```
+curl -s localhost:3000/session | jq .
+```
+
+**Output**
+```
+{
+  "data": [
+    {
+      "model": {
+        "image": "models/1ad3282b-3fce-4f56-ae90-2a4d16d2f40d/image.jpg",
+        "num_pos": 200,
+        "num_neg": 200,
+        "size": [
+          10,
+          10
+        ],
+        "uuid": "1ad3282b-3fce-4f56-ae90-2a4d16d2f40d",
+        "name": "open_mouth",
+        "start_time": "2015-04-15T02:58:01.115Z",
+        "end_time": "2015-04-15T06:55:53.230Z"
+      },
+      "id": "24f362c8-75aa-43ca-8fc3-f9ceeaf5cef0"
+    }
+  ]
+}
+```
+
+Let's now send an image URL to this VMX session and get the results of
+the "eyes" detection. We will be using the following image:
+
+[http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg](http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg)
+
+<img src="http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg"></img>
+
+**Command line input**
+``` 
+curl -s -X POST -d '{"images":[{"image":"http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg"}]}' localhost:3000/session/15c3a5dc-cffb-43ac-a5dd-6755f5376c81
+```
+
+**Output**
+```
+{
+  "error": 0,
+  "message": "Process Image Success",
+  "time": 0.194657229,
+  "model": {
+    "uuid": "e018112b-c9ba-437f-959d-49280acb8c9c",
+    "name": "eyes",
+    "size": [
+      4,
+      10
+    ],
+    "num_pos": 882,
+    "num_neg": 360,
+    "start_time": "2015-03-16T04:29:36.921Z",
+    "end_time": "2015-04-15T07:36:46.837Z",
+    "image": "models/e018112b-c9ba-437f-959d-49280acb8c9c/image.jpg"
+  },
+  "objects": [
+    {
+      "name": "eyes",
+      "bb": [
+        103.7099005310307,
+        172.78516300280293,
+        274.2637297891478,
+        242.85019767944317
+      ],
+      "score": 8.147063606844702
+    }
+  ]
+}
+```
+
+In this example, we created a new VMX session with the "eyes"
+detector, sent it the location of an image, and obtained the resulting
+JSON which shows the location of the object as well as the resulting
+confidence score.
+
 
 ---
 
