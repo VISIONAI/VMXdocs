@@ -5,7 +5,7 @@ object detection and recognition system made and maintained by [vision.ai](http:
 
 ---
 
-# About VMX
+#### About VMX
 
 VMX consists of a visual object detection algorithm engineered for
 speed, accuracy, and a web-based interface for building vision
@@ -17,18 +17,18 @@ favorite programming language and talk to VMX over HTTP.  VMX can also
 take commands from standard input (*command line support is
 built-in*). 
 
-## Learn VMX
+#### Learn VMX
 The VMX GUI runs in your browser and gives you many powerful tools to
 build and prototype your computer vision application. To learn how to
 use the VMX GUI, train your own models, and modify existing models,
 see [Learn VMX](VMXAppBuilder.md). 
 
-## VMX API
+#### VMX API
 If you want to interface with VMX from your favorite programming
 language, build a web-based vision app, or interact with a running VMX
 system, see [VMX API Docs](VMXapi.md).
 
-## Installation
+#### Installation
 
 Installation and deployment instructions are provided in
 [VMX Installation Docs](VMXinstall.md). VMX runs on your personal
@@ -36,4 +36,8 @@ computer, with native installers for Mac OS X and Linux, as well as
 Docker container support for all three major personal computing
 platforms: Windows (via boot2docker), Mac OS X, and Linux.
 
+**VMXDocs on Github**
 
+These docs can be found on Github under
+[VISIONAI/VMXDocs](https://github.com/VISIONAI/VMXdocs). If you find
+any problems with the documentation, just let us know.
