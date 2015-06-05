@@ -240,6 +240,14 @@ curl -s -X POST -d '{"images":[{"image":"http://people.csail.mit.edu/tomasz/img/
 }
 ```
 
+If you want to use different detection parameters, you can specify the
+`params` fields in the payload as follows:
+
+**Input**
+```
+curl -s -X POST -d '{"images":[{"image":"http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg"}],"params":{"crop_radius":80,"crop_threshold":-1,"display_threshold":-1,"jpeg_quality":1,"remove_smooth_below_threshold":true,"display_top_detection":false,"max_windows":100,"learn_mode":false,"learn_iterations":10,"learn_threshold":0,"train_max_positives":2000,"train_max_negatives":1000,"detect_max_overlap":0.1,"learn_max_positives":1,"detect_add_flip":false,"levels_per_octave":10,"max_image_size":320,"initialize_max_cells":12,"cell_size":4,"initialize_add_flip":false}}' localhost:3000/session/15c3a5dc-cffb-43ac-a5dd-6755f5376c81
+```
+
 In this example, we created a new VMX session with the "eyes"
 detector, sent it the location of an image, and obtained the resulting
 JSON which shows the location of the object as well as the resulting
@@ -247,7 +255,7 @@ confidence score.
 
 Let's now close our running session.
 
-## Example 2: Close a running session
+## Example 3: Close a running session
 
 Let's check the number of running sessions:
 
@@ -289,22 +297,24 @@ curl -s http://localhost:3000/session | jq '.data | length'
 
 ---
 
-## VMXserver API
+## VMXserver single process API
 
-VMX typically launches separate "VMXserver" processes to manage
-multiple sessions, but you can start a standalone VMXserver process on
-your own.
+Inside of VMX there is a collection of separate VMXserver
+processes. Each unique session id refers to a separate VMX process --
+some of them could be used for detecting cars, and some for detecting
+faces.
 
-The VMXServer application interface is the way your application or
-script talks to our system.  Even though the VMXserver application
-interface is a full-fledged API, it is not a REST-API and lacks
-multi-session support.  Things are likely to change in upcoming
-releases, so it is better to write applications on top of the REST API
-and not on top of the application interface.
+With the VMX REST API you can launches separate "VMXserver" processes,
+but you can start a single VMXserver process on your own. **Note that
+the VMXserver API is different to the VMX REST API.**
 
-The VMXserver application interface describes how to interact with a
-single VMX object detection `process`.  The API currently consists of
-the following 11 functions:
+Even though the VMXserver application interface is a full-fledged API,
+it is not a REST-API and lacks multi-session support.  Things are
+likely to change in upcoming releases, so it is better to write
+applications on top of the REST API and not on top of the VMXserver
+single process API..
+
+The VMXserver API currently consists of the following 11 functions:
 
 
 Command      | Description
@@ -321,25 +331,163 @@ get_config   |  Get the configuration object
 set_config   |  Set the configuration object
 exit         |  Stop the VMX server and clean up sessions
 
-You issue these commands by writing a command json into the VMXserver
-port.  The format of the command json is as
-follows:
+## Example 4: Launch a VMXserver process
 
-```sh
-curl -X POST -d '{"command":"load_model","uuids":["UUID1"],"compiled",false}' localhost:8081
+Let's launch a VMXserver process on port 8081, using
+`/Applications/VMX.app/Contents/MacOS/assets` as our main vmx data
+directory, assign the process a session id called `my_session`, not
+load a model on launch by specifying `none`, and giving it `:8081` to
+run on port 8081.
+
+**Input**
+
 ```
-Where ... corresponds to additional arguments that are required to
-make sense of the command.  Here is a short description of each of
-these functions.
+cd /Applications/VMX.app/Contents/MacOS/VMXserver.app/Contents/MacOS
+./VMXserver /Applications/VMX.app/Contents/MacOS/assets my_session none :8081
+```
+
+**Output**
+```
+ ___      ___  _____ ______       ___    ___
+|\  \    /  /||\   _ \  _   \    |\  \  /  /|
+\ \  \  /  / /\ \  \\\__\ \  \   \ \  \/  / /
+ \ \  \/  / /  \ \  \\|__| \  \   \ \    / /
+  \ \    / /    \ \  \    \ \  \   /     \/
+   \ \__/ /      \ \__\    \ \__\ /  /\   \
+    \|__|/        \|__|     \|__|/__/ /\ __\
+                                 |__|/ \|__|
+VMX Visual Object Detection Server
+VMXserver_Mac_v0.1.16
+Copyright vision.ai, LLC 2013-2015
+See eula.txt for Licensing Agreement
+To Learn more, visit us at http://vision.ai
+VMXgo listening on http://0.0.0.0:8081
+{"time":"2015-06-05T19:24:55.064Z","message":"Welcome to VMXserver","version":"VMXserver-Mac-v0.1.16","user":"aa0fd9fb-69dc-4259-a912-237a8987e598","machine":"Darwin 13.4.0 Darwin Kernel Version 13.4.0: Wed Mar 18 16:20:14 PDT 2015; root:xnu-2422.115.14~1/RELEASE_X86_64 x86_64;4898BCEE-C1D2-384F-BB99-B046A94BFA36","uuid":"4898BCEE-C1D2-384F-BB99-B046A94BFA36","pid":"67742"}
+{"time":"2015-06-05T19:24:55.121Z","message":"Copyright vision.ai, LLC 2013-2015"}
+{"time":"2015-06-05T19:24:55.123Z","message":"By running this software, you agree to the vision.ai Software License Agreement"}
+{"time":"2015-06-05T19:24:55.123Z","message":"Visit http://vision.ai for Documentation"}
+{"time":"2015-06-05T19:24:55.127Z","message":"VMXserver command line arguments","vmx_dir":"/Applications/VMX.app/Contents/MacOS/assets","session_id":"fff","model_uuid":""}
+{"time":"2015-06-05T19:24:55.131Z","message":"Not loading a model"}
+```
+
+In a separate terminal, let's ping VMX server which should be on port 8081.
+
+**Input**
+
+```
+curl -s -X POST localhost:8081 | jq .
+```
+
+**Output**
+
+```
+{
+  "error": 1,
+  "message": "Invalid json: \"\"",
+  "commands": [
+    "exit",
+    "get_config",
+    "set_config",
+    "show_model",
+    "load_model",
+    "list_models",
+    "save_model",
+    "edit_model",
+    "create_model",
+    "get_params",
+    "process_image"
+  ]
+}
+```
+
+Since we POSTed an empty request, we get an "Invalid json" error, but
+at least we know `http://localhost:8081` is ready for commands.
+
+## Example 5: List models and shut down
+
+Let's list some models, and shut down our session.
+
+**Input**
+
+```
+curl -s -X POST -d '{"command":"list_models"}' localhost:8081 | jq .
+```
+
+**Output**
+```
+{
+  "error": 0,
+  "uuids": [
+    "008db1b3-acd3-49fe-94ea-a51297926ada",
+    "05883a2b-c2f8-4cc9-bdc3-a17dd38e7c6f"
+  ],
+  "names": [
+    "hoc_faces",
+    "joker"
+  ],
+  "message": "Listing 2 models"
+}
+```
+
+We listed `2` models and have both their uuids and names
+accessible. Let's now exit the session.
+
+**Input**
+
+```
+curl -s -X POST -d '{"command":"exit"}' localhost:8081 | jq .
+```
+
+**Output**
+```
+{
+  "error": 0,
+  "message": "exit"
+}
+```
+
+Let's now confirm that VMXserver shut down correctly.
+ 
+**Input**
+```
+curl -X POST localhost:8081
+```
+
+**Output**
+```
+curl: (7) Failed connect to localhost:8081; Connection refused
+```
+
+We can see that the VMXserver running on port 8081 did, in fact, shut down.
+
+## Other commands
 
 #### Listing models
 
 The command `list_models` will return a listing of UUIDs inside the
 current VMX directory.
 
-```sh
-curl -X POST -d '{"command:"save_model","model_name":"new_model"}'
+**Input**
 ```
+curl -s -X POST -d '{"command":"list_models"}' localhost:8081 | jq .
+```
+
+**Output**
+```
+{
+  "error": 0,
+  "uuids": [
+    "008db1b3-acd3-49fe-94ea-a51297926ada",
+    "05883a2b-c2f8-4cc9-bdc3-a17dd38e7c6f"
+  ],
+  "names": [
+    "hoc_faces",
+    "joker"
+  ],
+  "message": "Listing 2 models"
+}
+```
+
 
 #### Loading a model
 
@@ -361,13 +509,74 @@ curl -X POST -d '{"command":"load_model","uuids":["http://vision.ai/uuid1/model.
 ```
 
 #### Creating a Model
-To create a new model, we simply send a sequence of images with
-bounding boxes, and the name of the new model name (`cls` in this case).
 
-```json
-{ "command" : "create_model" , "selections" :
-[{"image" : "image1.jpg" , "bb" : [10,10,10,100] , "time" :
-"2014-09-09T3:43.003Z", "cls" : "new_object"}]}
+To create a new model, we simply send a sequence of images with
+annotated bounding boxes, the name of the new model, as well as model
+parameters.
+
+**Input**
+```
+curl -s -X POST -d '{"command":"create_model","name":"thingy","images":[{"image":"http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg","time":"2015-06-05T20:05:00.295Z","objects":[{"bb":[10,10,60,60],"name":"thingy"}]}],"params":{"train_max_positives":1000,"cell_size":4,"learn_iterations":10,"max_image_size":640,"display_top_detection":false,"initialize_max_cells":10,"crop_radius":80,"max_windows":100,"learn_threshold":0,"train_max_negatives":2000,"remove_smooth_below_threshold":true,"jpeg_quality":1,"display_threshold":0,"initialize_add_flip":false,"detect_add_flip":false,"learn_max_positives":1,"levels_per_octave":10,"detect_max_overlap":0.1,"learn_mode":false,"crop_threshold":0}}'
+localhost:8081 | jq .
+```
+
+**Output**
+```
+{
+  "error": 0,
+  "message": "Create Model Success (UUID=thingy)",
+  "warning": "Create Model (Model Not Saved)",
+  "data": {
+    "model": {
+      "uuid": "26156022-0eae-4eca-bf92-761db2d650cb",
+      "name": "thingy",
+      "size": [
+        10,
+        10
+      ],
+      "num_pos": 1,
+      "num_neg": 4,
+      "start_time": "2015-06-05T20:05:00.295Z",
+      "end_time": "2015-06-05T20:05:00.295Z",
+      "image": "models/26156022-0eae-4eca-bf92-761db2d650cb/image.jpg"
+    },
+    "time": 10.253389608
+  }
+}
+```
+
+Note that the model is not saved immediately after creation. You can
+also use the default parameters for model creation by simply omitting
+the "params" field:
+
+**Input**
+```
+curl -s -X POST -d '{"command":"create_model","name":"thingy","images":[{"image":"http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg","time":"2015-06-05T20:05:00.295Z","objects":[{"bb":[10,10,60,60],"name":"thingy"}]}]}' localhost:8081
+```
+
+**Output**
+```
+{
+  "error": 0,
+  "message": "Create Model Success (UUID=thingy)",
+  "warning": "Create Model (Model Not Saved)",
+  "data": {
+    "model": {
+      "uuid": "bf940050-9bf9-4361-91e3-a1890aa85559",
+      "name": "thingy",
+      "size": [
+        10,
+        10
+      ],
+      "num_pos": 1,
+      "num_neg": 10,
+      "start_time": "2015-06-05T20:05:00.295Z",
+      "end_time": "2015-06-05T20:05:00.295Z",
+      "image": "models/bf940050-9bf9-4361-91e3-a1890aa85559/image.jpg"
+    },
+    "time": 9.822247472
+  }
+}
 ```
 
 #### Saving a model
@@ -376,30 +585,116 @@ to the model.  A new model_name can be provided, which will the save
 the model with this new name and return a new model with the name updated.
 
 ```sh
-curl -X POST -d '{"command:"save_model","model_name":"new_model"}'
+curl -X POST -d '{"command:"save_model","model_name":"new_model"}' localhost:8081
 ```
 
 #### Processing an image (detecting objects)
 
-To perform object detection, you simply call process_image. Process
-Image will return a set of bounding boxes associated with the image.
-You can set images as either dataURLS, absolute file locations on
-disk, or remote URLs.  This should give you enough flexibility to run
-VMX in many different interesting scenarios.
+To perform object detection, you can use the process_image
+command. This will use the currently loaded model (or set of models),
+perform the computationally expensive object detection procedure, and
+then return a set of bounding boxes associated with the image.  You
+can set the input image as either dataURLS, absolute file locations on
+disk (works in Mac), or URLs. This should give you enough
+flexibility to run VMX in many different interesting scenarios.
 
 The input to `process_image` also takes a params object.
 
-```sh
-{"command":"process_image","images":[{"image":"/VMXdata/first.jpg"}]}
+**Input**
+```
+curl -s -X POST -d '{"command":"process_image","images":[{"image":"http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg"}]}' localhost:8081
 ```
 
+**Output**
+```
+{
+  "error": 0,
+  "message": "Process Image Success",
+  "time": 0.295668743,
+  "model": {
+    "uuid": "07eb4e84-eb8a-42f5-8eda-1b00429f90a4",
+    "name": "thingy",
+    "size": [
+      10,
+      10
+    ],
+    "num_pos": 1,
+    "num_neg": 75,
+    "start_time": "2015-06-05T20:05:00.295Z",
+    "end_time": "2015-06-05T20:05:00.295Z",
+    "image": "models/07eb4e84-eb8a-42f5-8eda-1b00429f90a4/image.jpg"
+  },
+  "objects": [
+    {
+      "name": "thingy",
+      "bb": [
+        10,
+        10,
+        60,
+        60
+      ],
+      "score": 1.0000000000000002
+    },
+    {
+      "name": "thingy",
+      "bb": [
+        289.65923996339734,
+        33.146902109146716,
+        351.2867774199031,
+        94.77443956565247
+      ],
+      "score": -0.9744803482592788
+    },
+    {
+      "name": "thingy",
+      "bb": [
+        65.90512865083195,
+        149.9094142557938,
+        131.9777221710484,
+        215.98200777601022
+      ],
+      "score": -0.9749270943919598
+    },
+    {
+      "name": "thingy",
+      "bb": [
+        131.53911065161566,
+        235.71549121014334,
+        181.53911065161563,
+        285.71549121014334
+      ],
+      "score": -0.991729386395335
+    },
+    {
+      "name": "thingy",
+      "bb": [
+        144.1313387231087,
+        348.7530752020124,
+        214.9680253718962,
+        419.5897618507999
+      ],
+      "score": -0.9938120546897686
+    },
+    {
+      "name": "thingy",
+      "bb": [
+        4.3469091660803105,
+        140.81227373972808,
+        57.95741660576711,
+        194.42278117941487
+      ],
+      "score": -0.9957039762289372
+    }
+  ]
+}
+```
 #### Showing a model
 
 Showing a model consists of extracting images for the postive and
 negative examples used in the underlying machine learning model.
 
 ```sh
-curl -X POST -d '{"command:"show_model",...}' localhost:8081
+curl -s -X POST -d '{"command":"show_model","settings":{"learn_iterations":10,"max_positives":10,"max_negatives":10,"positives_order":-1,"negatives_order":1},"changes":[]}' localhost:8081
 ```
 
 #### Editing a model
