@@ -3,7 +3,7 @@ site_description: VMX Computer Vision Docs by vision.ai, LLC
 theme_dir: custom_theme
 site_favicon: img/favicon.ico
 use_directory_urls: false
-
+repo_url: https://github.com/VISIONAI/VMXdocs/
 pages:
 - ['index.md', 'Introduction']
 - ['VMXAppBuilder.md', 'Learn VMX']
