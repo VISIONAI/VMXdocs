@@ -1,6 +1,6 @@
 # VMX API
 
-VMX runs as a server and processes requests over HTTP.
+VMX runs as a server and processes object detection requests over HTTP.
 
 ---
 
@@ -157,7 +157,6 @@ The output will give us a new session id.
 
 **Output**
 ```
-
 { "data": {
     "id": "15c3a5dc-cffb-43ac-a5dd-6755f5376c81"
   }
@@ -177,19 +176,19 @@ curl -s localhost:3000/session | jq .
   "data": [
     {
       "model": {
-        "image": "models/1ad3282b-3fce-4f56-ae90-2a4d16d2f40d/image.jpg",
-        "num_pos": 200,
-        "num_neg": 200,
+        "image": "models/e018112b-c9ba-437f-959d-49280acb8c9c/image.jpg",
+        "num_pos": 882,
+        "num_neg": 360,
         "size": [
-          10,
+          4,
           10
         ],
-        "uuid": "1ad3282b-3fce-4f56-ae90-2a4d16d2f40d",
-        "name": "open_mouth",
-        "start_time": "2015-04-15T02:58:01.115Z",
-        "end_time": "2015-04-15T06:55:53.230Z"
+        "uuid": "e018112b-c9ba-437f-959d-49280acb8c9c",
+        "name": "eyes",
+        "start_time": "2015-03-16T04:29:36.921Z",
+        "end_time": "2015-04-15T07:36:46.837Z"
       },
-      "id": "24f362c8-75aa-43ca-8fc3-f9ceeaf5cef0"
+      "id": "61634995-b25c-4271-b1e5-d3925f49957f"
     }
   ]
 }
@@ -200,7 +199,7 @@ the "eyes" detection. We will be using the following image:
 
 [http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg](http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg)
 
-<img src="http://people.csail.mit.edu/tomasz/img/tomasz_blue_crop.jpg"></img>
+<img src="/img/tomasz_blue_crop.jpg"></img>
 
 **Command line input**
 ``` 
@@ -245,6 +244,47 @@ In this example, we created a new VMX session with the "eyes"
 detector, sent it the location of an image, and obtained the resulting
 JSON which shows the location of the object as well as the resulting
 confidence score.
+
+Let's now close our running session.
+
+## Example 2: Close a running session
+
+Let's check the number of running sessions:
+
+**Input**
+```
+curl -s http://localhost:3000/session | jq '.data | length'
+```
+
+**Command line output**
+```
+1
+```
+
+Let's get the session id of the first and only running session.
+
+```
+SID=`curl -s http://localhost:3000/session | jq -r '.data[0].id'`
+```
+And finally let's close the session by sending the DELETE verb to the
+session we assigned to the environment variable $SID.
+
+```
+curl -s -X DELETE http://localhost:3000/session/$SID
+```
+
+We can now confirm that the number of sessions is 0.
+
+**Input**
+```
+curl -s http://localhost:3000/session | jq '.data | length'
+```
+
+**Command line output**
+```
+0
+```
+
 
 
 ---
