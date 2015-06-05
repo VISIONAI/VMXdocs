@@ -33,17 +33,10 @@
         <div class="container">
             <div class="col-md-3">{% include "toc.html" %}</div>
             <div class="col-md-9" role="main">{% include "content.html" %}</div>
-        </div>
 
-        {% if include_search %}{% include "search.html" %}{% endif %}
-
-        {% if copyright %}
-        <div class="footer">
-          <div class="container">
-            <p class="text-muted">{{copyright}}
             <!-- Place this tag where you want the button to
             render. -->
-
+<div class="col-md-9">
 <!-- Place this tag where you want the button to render. -->
 <a class="github-button" href="https://github.com/VISIONAI/VMXdocs"
    data-icon="octicon-star" data-style="mega"
@@ -73,6 +66,18 @@
                                                           on
    GitHub">Issue</a>
 
+        </div>
+
+</div>
+
+        {% if include_search %}{% include "search.html" %}{% endif %}
+
+
+
+        {% if copyright %}
+        <div class="footer">
+          <div class="container">
+            <p class="text-muted">{{copyright}}
 </p>
           </div>
         </div>
