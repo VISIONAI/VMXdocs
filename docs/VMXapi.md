@@ -315,13 +315,13 @@ faces.
 
 With the VMX REST API you can launches separate "VMXserver" processes,
 but you can start a single VMXserver process on your own. **Note that
-the VMXserver API is different to the VMX REST API.**
+the VMXserver API is different than the VMX REST API.**
 
 Even though the VMXserver application interface is a full-fledged API,
 it is not a REST-API and lacks multi-session support.  Things are
 likely to change in upcoming releases, so it is better to write
 applications on top of the REST API and not on top of the VMXserver
-single process API..
+single process API.
 
 The VMXserver API currently consists of the following 11 functions:
 
@@ -338,22 +338,30 @@ edit_model   |  Edit the model's positives and negatives and perform learning
 get_params   |  Retrieve the process's detection parameters
 get_config   |  Get the configuration object
 set_config   |  Set the configuration object
-exit         |  Stop the VMX server and clean up sessions
+exit         |  Stop the VMX server and clean up session
 
 ## Example 4: Launch a VMXserver process
 
 Let's launch a VMXserver process on port 8081, using
 `/Applications/VMX.app/Contents/MacOS/assets` as our main vmx data
-directory, assign the process a session id called `my_session`, not
-load a model on launch by specifying `none`, and giving it `:8081` to
+directory, assign the process a session id called `my_session`, omit
+loading a model on launch by specifying `none` for the model_id, and specify `:8081` to
 run on port 8081.
 
-**Input**
+**Input (Mac OS X)**
 
 ```
 cd /Applications/VMX.app/Contents/MacOS/VMXserver.app/Contents/MacOS
 ./VMXserver /Applications/VMX.app/Contents/MacOS/assets my_session none :8081
 ```
+
+**Input (Linux)**
+
+```
+cd ~/vmx-docker-manager/
+./vmx start_process 8081
+```
+
 
 **Output**
 ```
