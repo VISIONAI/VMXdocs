@@ -4,4 +4,6 @@
 cd `dirname $0`
 docker stop docs-nginx
 docker rm docs-nginx
-docker run --name docs-nginx -p 80:80 -p 443:443 -v `pwd`/nginx.conf:/etc/nginx/nginx.conf:ro -v /etc/ssl:/etc/ssl_import -v /docs:/docs/ -d nginx
+
+#Start an nginx server which serves the /docs directory over HTTPS using a virtual_host and nginx-ssl-proxy for docker containers
+docker run --name docs-nginx -p 127.0.0.1:5000:80 -e VIRTUAL_HOST=docs.vision.ai -v /docs:/usr/share/nginx/html:ro -d nginx
