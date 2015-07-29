@@ -23,17 +23,22 @@ VERB    | Route   | Description
 GET  | /session  | List open sessions
 GET  | /model   |  List available models
 POST | /session |  Create a new session
+PUT  | /model   |  Save the model
+POST | /model   |  Create a new model
 POST | /session/#session_id   |  Detect objects inside the image
 GET  | /session/#session_id/params  | List loaded model's parameters
 POST | /session/#session_id/edit   |  Show the model
 PUT  | /session/#session_id/edit   |  Edit the model
 POST | /session/#session_id/load   |  Load a new model
-GET  | /check  | Check VMX version and whether this copy is licensed
-POST | /activate/#key | Active this copy of VMX
-GET  | /random | Return a random image from the models
+POST | /session/#session_id/save   |  Save model
 GET  | /session/#session_id/log.txt | Last line of the log
-GET  | /models/#ModelId/image.jpg | Visualize model
-GET  | /models/#ModelId/model.data | Extract model file
+GET  | /check  | Check VMX version and whether this copy is licensed
+POST | /activate/#key | Activate VMX via purchased key
+GET  | /random | Return a random image from the models
+GET  | /models/#ModelId/image.jpg | Visualize model as a mean image
+GET  | /models/#ModelId/data_set.json | Extract Learning Data Set
+GET  | /models/#ModelId/model.data | Extract full model binary file
+GET  | /models/#ModelId/compiled.data | Extract compiled model binary file
 GET  | /models/#ModelId/data_set/first.jpg | Return first image in model
 GET  | /models/#ModelId/data_set/image.jpg | Return next image in model
 GET  | /models/#ModelId/data_set/random.jpg | Return random image in model
@@ -293,6 +298,10 @@ curl -s http://localhost:3000/session | jq '.data | length'
 0
 ```
 
+**Note:** It is sometimes easier to use the GUI for closing
+  sessions. You can access the session listing page by visiting
+  `http://localhost:3000/#/sessions` which will list the sessions, and
+  allow you to close them one by one.
 
 
 ---
@@ -306,13 +315,13 @@ faces.
 
 With the VMX REST API you can launches separate "VMXserver" processes,
 but you can start a single VMXserver process on your own. **Note that
-the VMXserver API is different to the VMX REST API.**
+the VMXserver API is different than the VMX REST API.**
 
 Even though the VMXserver application interface is a full-fledged API,
 it is not a REST-API and lacks multi-session support.  Things are
 likely to change in upcoming releases, so it is better to write
 applications on top of the REST API and not on top of the VMXserver
-single process API..
+single process API.
 
 The VMXserver API currently consists of the following 11 functions:
 
@@ -329,22 +338,30 @@ edit_model   |  Edit the model's positives and negatives and perform learning
 get_params   |  Retrieve the process's detection parameters
 get_config   |  Get the configuration object
 set_config   |  Set the configuration object
-exit         |  Stop the VMX server and clean up sessions
+exit         |  Stop the VMX server and clean up session
 
 ## Example 4: Launch a VMXserver process
 
 Let's launch a VMXserver process on port 8081, using
 `/Applications/VMX.app/Contents/MacOS/assets` as our main vmx data
-directory, assign the process a session id called `my_session`, not
-load a model on launch by specifying `none`, and giving it `:8081` to
+directory, assign the process a session id called `my_session`, omit
+loading a model on launch by specifying `none` for the model_id, and specify `:8081` to
 run on port 8081.
 
-**Input**
+**Input (Mac OS X)**
 
 ```
 cd /Applications/VMX.app/Contents/MacOS/VMXserver.app/Contents/MacOS
 ./VMXserver /Applications/VMX.app/Contents/MacOS/assets my_session none :8081
 ```
+
+**Input (Linux)**
+
+```
+cd ~/vmx-docker-manager/
+./vmx start_process 8081
+```
+
 
 **Output**
 ```
