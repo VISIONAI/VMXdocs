@@ -52,3 +52,7 @@ This requires a checkout of this directory on the docs file server
 ```sh
 ./server/start_nginx_docker.sh
 ```
+
+NOTE: if you are serving over https, you'll need something like
+nginx-proxy from jwilder and your own SSL certs. If you are a
+**vision.ai** admin, use nginx-ssl-proxy.
