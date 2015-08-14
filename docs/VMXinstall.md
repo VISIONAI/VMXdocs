@@ -146,7 +146,19 @@ of your own.
 
 **Updating VMX**
 
-On Mac OS X, you can download the most recent installer: it will
+If you want to update to the development version of VMX, you can run:
+```
+cd /Applications/VMX.app/Contents/MacOS/
+./update.sh latest
+```
+
+If you want to update to the stable version of VMX, you can run:
+```
+cd /Applications/VMX.app/Contents/MacOS/
+./update.sh latest
+```
+
+Alternatively, you can download the most recent Mac installer: it will
 overwrite the old VMX binaries, automatically transfer over your existing
 license/config files, and leave your models intact. To be safe, it is a good idea
 to backup your `config.json` file which contains the key and license
@@ -194,8 +206,7 @@ tested on boot2docker running on Mac OS X 10.9.5
 our single container VMX installer `vmx-kitematic` to try VMX. VMX has
 been tested on Mac OS X 10.9.5
 
-<img src="http://blog.vision.ai/images/visionai_kitematic.png"
-width="300px">
+<img src="img/visionai_kitematic.png" width="300px">
 
 Checkout our blog post
 [Dockerized Computer Vision for Mac via Kitematic](http://blog.vision.ai/vmx/2015/03/16/dockerized-computer-vision-for-mac-via-kitematic/)
