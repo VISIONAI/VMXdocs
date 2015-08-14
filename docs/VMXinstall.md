@@ -303,32 +303,71 @@ set before VMX starts.
   "user"          : "",
   "license"       : "",
   "MCR"           : "/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/",
-  "models"        : "/vmx/models/",
-  "sessions"      : "/vmx/sessions/",
   "data"          : "/vmx/data",
   "pretrained"    : "3f61ce5c7642bc2f24f7286f600b3e6b",
   "log_images"    : false,
   "log_memory"    : false,
-  "display_images": false
+  "display_images": false,
+  "allow_urls"    : false,
+  "read_only"     : false
 }
 ```
+ 
+The *user* and *license* fields get automatically set during the
+activation procedure.  The *MCR* field points to the location of the
+MATLAB MCR. The *pretrained* field is the default pretrained file used
+for model creation. To see all available pretrained files, please
+visit
+[https://files.vision.ai/vmx/pretrained/MD5SUMS.json](https://files.vision.ai/vmx/pretrained/MD5SUMS.json). As
+of August 2015, there are two different pretrained files you can use
+to create models.
 
 
-If enabled, *display_images* will display image detections on your
-desktop.  This is useful for debugging purposes.  If enabled,
-*log_memory* will log memory usage of VMX.  If enabled, *log_images*
-will dump full dataURLs into the log, which makes them quite big, but
-allows somebody from vision.ai to diagnose any issues you might be
-having.  The *user* and *license* fields get automatically set during
-the activation procedure. The *pretrained* field can be set to the
-hash of any other file you would like to use for model creation, but
-note that there are only a handful of distinct pretrained files ever
-released by vision.ai.
+**log_images**
 
-There is also a VMX `settings.yml` file which can be used to change
-the default location of the VMX models/sessions directory.
+If enabled, it will keep full dataURLs in the VMX sessions log, which
+makes them quite big.  By default, all dataURLs are replaced with the
+string `IMAGE` inside the logs.
+
+**log_memory**
+
+If enabled, memory usage will be logged in each line of each VMX
+session log.
+
+**display_images**
+
+If enabled, VMX will display image detections on your
+desktop. This is useful for debugging purposes, and has been tested
+on Mac OS X 10.9.5. Currently not supported in Docker as the X Desktop
+is not forwarded.
+
+**allow_urls**
+
+If enabled, it will allow `http://` and `https://` URLS to be
+specified for images. (Used in both create_model and process_image API
+calls). The model create API call will also look for the `pretrained`
+file at `https://files.vision.ai/vmx/pretrained`, which will not work
+when allow_urls is set to false. Lastly, the `load_model` API call
+allows the loading of remote models instead of UUIDs -- this is
+disabled when allow_urls is false. For production use, it is
+recommended to turn to set this flag to false.
+
+**read_only**
+
+If enabled, will only allow read_only operations. `create_model`,
+`edit_model`, and `save_model` requests will return an
+error. `process_image` requests will have learning_mode disabled when
+*read_only* is set to true. For production use, it is recommended to
+set this flag to false.
+
+### Specifying main VMX directory and VMXserver build path
+
+Next to the main VMX executable, there is a `settings.yml` file which
+can be used to change the default location of the VMX models/sessions
+directory. This makes sense when using the native Mac OS X.
 
 ** settings.yml on Linux**
+
 ```
 Default: &defaults
   host: "*4" # any IPv4 host
@@ -339,10 +378,61 @@ Default: &defaults
   vmxpath: "/vmx/build"
 ```
 
-On Mac, the `wwwdir` is relative:
+On Mac, the `wwwdir` is by default relative to contain all VMX
+information inside a single directory.
+
 ```
 wwwdir: "./assets/"
 ```
+
+## Download/Upload Models
+
+No VMX install is complete without some models.
+
+At vision.ai, we pretrained a large number of models for common
+objects like faces, hands, hand gestures, body parts, logos,
+etc. While there are scenarios where you really should create your own
+model from scratch, sometimes it is faster to download a pretrained
+model and adapt it to your data using VMX's learning_mode.
+
+VMX comes with a Model Manager script called `models`. On Mac OS X,
+you can find it right next to the VMX executable.  On Linux, it is a
+part of vision.ai's <a href="https://github.com/VISIONAI/vmx-docker-manager">vmx-docker-manager</a>
+
+**To download all available pretrained files (Mac)**
+
+```
+cd /Applications/VMX.app/Contents/MacOS/VMXserver.app/Contents/MacOS/VMXserver
+./download_pretrained.sh
+```
+
+**To download all models from https://models.vision.ai (Mac and Linux)**
+
+```
+cd ~/vmx-docker-manager/
+VMX_REMOTE_URL=https://models.vision.ai ./models download -all
+./models import
+```
+
+**To download the models x and y from https://models2.vision.ai (Mac and Linux)**
+
+```
+cd ~/vmx-docker-manager/
+VMX_REMOTE_URL=https://models2.vision.ai ./models download x y
+./models import
+```
+
+**To upload all models to https://myserver.vision.ai (Mac and Linux)**
+
+You will need root permissions on myserver.vision.ai, and have
+configured VMX to be running vmx-docker-manager installed in the
+directory `/home/root/vmx-docker-manager/`.
+
+```
+cd ~/vmx-docker-manager/
+VMX_REMOTE_URL=https://myserver.vision.ai VMX_UPLOAD_SSH=root@myserver.vision.ai ./models upload -all
+```
+
 
 If you have any questions or suggestions for improving the VMX
 Documentation, please submit an issue on Github.
